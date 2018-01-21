@@ -1,4 +1,19 @@
 import numpy as np
+import time
+
+def timeit(method):
+    def timed(*args, **kw):
+        ts = time.time()
+        result = method(*args, **kw)
+        te = time.time()
+        if 'log_time' in kw:
+            name = kw.get('log_name', method.__name__.upper())
+            kw['log_time'][name] = int((te - ts) * 1000)
+        else:
+            print '%r  %2.2f ms' % \
+                  (method.__name__, (te - ts) * 1000)
+        return result
+    return timed
 
 
 def softmax(x):
@@ -30,12 +45,11 @@ def softmax(x):
 
 	if len(x.shape) > 1:
 		# Matrix
-		max_values = np.max(x, axis=1)
-		max_values = np.reshape(max_values, (orig_shape[0],1))
-		
+		max_values = np.max(x, axis=1, keepdims=True)
 		numerators = np.exp(x - max_values)
-		x = numerators/np.sum(numerators,axis=1)
+		x = numerators/np.sum(numerators,axis=1, keepdims=True)
 	else:
+	    #Vector
 		max_value = np.max(x)
 		numerators = np.exp(x - max_value)
 		x = numerators/np.sum(numerators)
@@ -69,7 +83,10 @@ def test_softmax_basic():
 
 	print "You should be able to verify these results by hand!\n"
 
-
+@timeit
+def test_softmax_big_matrix(x):
+    return softmax(x)
+	
 def test_softmax():
 	"""
 	Use this space to test your softmax implementation by running:
@@ -78,10 +95,11 @@ def test_softmax():
 	your tests be graded.
 	"""
 	print "Running your tests..."
-	### YOUR CODE HERE
-	raise NotImplementedError
-	### END YOUR CODE
-
+	test4 = test_softmax_big_matrix(np.random.rand(100000,100)*10000)
+	assert np.allclose(np.sum(test4, axis=1), np.ones(test4.shape[0]), 
+		rtol=1e-05, atol=1e-06)
+	
+	print "Values calculated on a big matrix were correct"
 
 if __name__ == "__main__":
 	test_softmax_basic()
