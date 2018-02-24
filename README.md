@@ -1,6 +1,11 @@
+#### Derivative of sigmoid
+![Sigmoid](sigmoid_deriv.jpg?raw=true "Sigmoid derivative")
+
+#### Sentiment analysis
 ![Regularization](q4_reg_v_acc.png?raw=true "Regularization")
 ![ConfMatrix](q4_dev_conf.png?raw=true "Confusion matrix")
 
+##### Sample predictions
 True	Predicted	Text <br />
 4	1	manages to transcend the sex , drugs and show-tunes plot into something far richer . <br />
 4	1	two hours fly by -- opera 's a pleasure when you do n't have to endure intermissions -- and even a novice to the form comes away exhilarated . <br />
