@@ -99,7 +99,8 @@ class SoftmaxModel(Model):
         W = tf.Variable(
             tf.random_normal(
                 (self.config.n_features, self.config.n_classes))
-        b = tf.Variable(tf.zeros((self.config.n_classes)))
+                )
+        b = tf.Variable(tf.zeros( (self.config.n_classes) ))
         pred = softmax(tf.matmul(self.input_placeholder, W) + b)
         ### END YOUR CODE
         return pred
