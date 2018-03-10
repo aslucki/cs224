@@ -97,7 +97,7 @@ class SoftmaxModel(Model):
         """
         ### YOUR CODE HERE
         W = tf.Variable(
-            tf.random_normal(
+            tf.zeros(
                 (self.config.n_features, self.config.n_classes))
                 )
         b = tf.Variable(tf.zeros( (self.config.n_classes) ))
